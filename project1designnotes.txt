@@ -1,0 +1,11 @@
+L1 Memory Cache
+L2 Memory Cache
+Ram Memory
+
+Simulate the CPU (read, write, pause) for the project
+
+Develop L1, L2, and ram for project purposes.
+
+Develop the logic for read / writes from the CPU
+
+Develop the testbench and file reader
