@@ -1,0 +1,1 @@
+vsim +MODE=1 -do wave.do cacheTestBench
