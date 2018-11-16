@@ -85,36 +85,15 @@ module datacacheL1(
     reg [39:0] tag1;
         
     reg match1, match;
-    reg [2:0] matchingLine1, matchingLine;
+    reg [2:0] matchingLine1, matchingLine, matchingLineLRU, matchingLineLRU1;
     reg [3:0] line;
     reg [39:0] currentTag;//current loop tag
-    reg [3:0] LRUline, LRUline1; //LRU line number
-    
-    wire [39:0] matchingLineTag;
-    wire [2:0] matchingLineLRU;
-    wire [1:0] matchingLineMESI;
-    wire matchingLineWriteFirst;
-    
-    wire [39:0] LRULineTag;
-    wire [2:0] LRULineLRU;
-    wire [1:0] LRULineMESI;
-    wire LRULineWriteFirst;
-    
-    assign LRULineTag = cacheArray[index1][LRUline1][45:6];
-    assign LRULineLRU = cacheArray[index1][LRUline1][3:1];
-    assign LRULineMESI = cacheArray[index1][LRUline1][5:4];
-    assign LRULineWriteFirst = cacheArray[index1][LRUline1][0];
-    
-    assign matchingLineTag = cacheArray[index1][matchingLine1][45:6];
-    assign matchingLineLRU = cacheArray[index1][matchingLine1][3:1];
-    assign matchingLineMESI = cacheArray[index1][matchingLine1][5:4];
-    assign matchingLineWriteFirst = cacheArray[index1][matchingLine1][0];
     
     reg [3:0] LRUupdatecount;
     reg LRUupdate; //have to update the LRU counters if this is true;
     
     reg [2:0] LRUcompValue;
-    reg [3:0] LRULineSet; //line to set most used
+    reg [2:0] LRULineSet; //line to set most used
     
     integer i, j, k;
     initial begin
@@ -138,7 +117,8 @@ module datacacheL1(
     end
     
     reg [45:0] currentLineForMatching;
-    reg [2:0] lineArray [7:0]; //[2:0] is LRU value
+    reg [2:0] lineArrayLRU [7:0]; //[2:0] is LRU value
+    reg [1:0] lineArrayMESI [7:0]; //[1:0] is the MESI value
 
     //initialize the cache data and cache array here
 
@@ -147,7 +127,18 @@ module datacacheL1(
     reg [14:0] curSet;
     reg [3:0] curLine, curLRU;
 
-    reg LRUupdateType;
+    //invalid LRU logic//////////////////
+    reg invalidExists, firstLRUfound;
+    reg [2:0] LRUinvalidLine, LRUinvalidValue;
+    /////////////////////////////////////
+
+    //LRU logic/////////////////////////
+    reg [2:0] LRUline, LRULineValue;
+    ////////////////////////////////////
+
+    //Victim defines//////////////////////////
+    reg [2:0] victimLine, victimLRUvalue, victimLine1, victimLRUvalue1;
+    //////////////////////////////////////////
     
     //pipeline the cache command
     always@(posedge clk) begin
@@ -157,8 +148,6 @@ module datacacheL1(
             hits <= 0;
             misses <= 0;
             total <= 0;
-
-            LRUupdateType <= 0; //set the matching line to MSU, 1:set to LRU
         
             processing <= 0;
             LRUupdate <= 0;
@@ -175,41 +164,37 @@ module datacacheL1(
         end
         else begin
             if(!processing && write) begin //only change the command if the last command is done
+
+               ///////////////////////////////////////////////////////////////////////
+               //latch in all the combo logic for processing the various commands
+               ///////////////////////////////////////////////////////////////////////
+
                command1 <= command;
+
                match1 <= match; //tag match (set) from recieved command (true or false)
-               matchingLine1 <= matchingLine; //matching line number from receieved command (in the set)
+               matchingLine1 <= matchingLine;
+               matchingLineLRU1 <= matchingLineLRU;
                
-               LRUline1 <= LRUline; //LRU line from received command set
+               victimLine1 <= victimLine;
+               victimLRUvalue1 <= victimLRUvalue;
                
                index1 <= index;
                byte_sel1 <= byte_sel;
                tag1 <= tag;
                
                processing <= 1;
+
             end
             else if(processing) begin //processing
                 if(LRUupdate) begin 
-                    if(!LRUupdateType) begin //set SetLine to MSU -> LRU == 7 is LRU line
-                        for(LRUupdatecount = 0; LRUupdatecount < 8; LRUupdatecount = LRUupdatecount + 1) begin
-                            //increment all LRU bits that are less than the hitLRU, use when setting line to MSU
-                            if(cacheArray[index][LRUupdatecount][3:1] < LRUcompValue && LRUupdatecount != LRULineSet) begin 
-                                cacheArray[index][LRUupdatecount][3:1] <= cacheArray[index][LRUupdatecount][3:1] + 1;
-                            end
-                            else if(LRUupdatecount == LRULineSet) begin //reset LRU to 0 (MRU), this is the line that has been replaced in the case statement
-                                cacheArray[index][LRUupdatecount][3:1] <= 0;
-                            end
-                        end   
-                    end
-                    else begin
-                        for(LRUupdatecount = 0; LRUupdatecount < 8; LRUupdatecount = LRUupdatecount + 1) begin
-                            //decrement all LRU bits that are greater than the hitLRU, use when setting a line to invalid (LSU)
-                            if(cacheArray[index][LRUupdatecount][3:1] > LRUcompValue && LRUupdatecount != LRULineSet) begin
-                                cacheArray[index][LRUupdatecount][3:1] <= cacheArray[index][LRUupdatecount][3:1] - 1;
-                            end
-                            else if(LRUupdatecount == LRULineSet) begin //reset LRU to 7 (LRU), this is the line that has been replaced in the case statement
-                                cacheArray[index][LRUupdatecount][3:1] <= 7;
-                            end
-                        end  
+                    for(LRUupdatecount = 0; LRUupdatecount < 8; LRUupdatecount = LRUupdatecount + 1) begin
+                    	//increment all LRU bits that are less than the the replaced LRU
+                    	if(cacheArray[index][LRUupdatecount][3:1] < LRUcompValue && LRUupdatecount != LRULineSet) begin 
+                    	    cacheArray[index][LRUupdatecount][3:1] <= cacheArray[index][LRUupdatecount][3:1] + 1;
+                    	end
+                    	else if(LRUupdatecount == LRULineSet) begin //reset victim line to 0 (MRU), this is the line that has been replaced
+                    	    cacheArray[index][LRUupdatecount][3:1] <= 0;
+                    	end
                     end
                     LRUupdate <= 0; 
                     processing <= 0; //prosessing done once LRU updating is done
@@ -225,6 +210,8 @@ module datacacheL1(
                     //SHARED = 2'd2,   
                     //EXCLUSIVE = 2'd3;
                     case(command1)
+                    	//When a line is changed to invalid, do not update the LRU bits, victim line is already calculated based on invalid lines first then total LRU second(based on documentation)
+
                         READ: begin
                             reads <= reads + 1;
                             total <= total + 1;
@@ -235,23 +222,26 @@ module datacacheL1(
                                 //cache miss, try to read from L2 (from the final project documentation)
                                 
                                 misses <= misses + 1; //replace LRU line
-                                if(cacheArray[index1][LRUline1][5:4] == INVALID) begin//empty slot
+                                if(cacheArray[index1][victimLine1][5:4] == INVALID) begin //empty slot, goes to exclusive
                                     //write tag bits
-                                    cacheArray[index1][LRUline1][45:6] <= tag1;
+                                    cacheArray[index1][victimLine1][45:6] <= tag1;
                                     //update MESI bits
-                                    cacheArray[index1][LRUline1][5:4] <= EXCLUSIVE;
+                                    cacheArray[index1][victimLine1][5:4] <= EXCLUSIVE;
+
+                                    processing <= 0; //done
                                 end
-                                else begin//slot is not empty, needs to be a victim
-                                    cacheArray[index1][LRUline1][45:6] <= tag1;
+                                else begin //slot is not empty, needs to be a victim
+                                    cacheArray[index1][victimLine1][45:6] <= tag1;
                                     //MESI state remains the same (read)
-                                    cacheArray[index1][LRUline1][5:4] <= cacheArray[index][LRUline1][5:4];
+                                    cacheArray[index1][victimLine1][5:4] <= cacheArray[index][victimLine1][5:4];
                                 end
 
+                                /////////////////////////////////
                                 LRUupdate <= 1;
-                                //in this case remove the highest (LRU) line
-                                LRUcompValue <= LRULineLRU;
-                                LRULineSet <= LRUline1;
-                                LRUupdateType <= 0;
+                                //set comp values for LRU update//
+                                LRULineSet <= victimLine1;
+               					LRUcompValue <= victimLRUvalue1;
+               					/////////////////////////////////
                             end
                             else begin //found a matching tag
                                 //hit, matching tag
@@ -264,16 +254,12 @@ module datacacheL1(
                                 
                                 LRUupdate <= 1;
                                 //in this case update below matching line LRU values
-                                LRUcompValue <= matchingLineLRU;
+                                LRUcompValue <= matchingLineLRU1;
                                 LRULineSet <= matchingLine1;
-                                LRUupdateType <= 0;
                             end
                         end
                         WRITE: begin
-                                  //when a line is set to invalid must reset the LRU bits in the set, invalid line should be set to 7 (LRU)
-                                  //so LRUcompValue <= matchingLineLRU 
-                                  //LRULineSet <= matchingLine1;
-                                  //LRUupdateType <= 1;
+
                         end
                         INVALIDATE:
                         begin
@@ -318,91 +304,85 @@ module datacacheL1(
     
     //purely combinatorial logic
     always@(*) begin
-        //find if there is a matching tag current in the set, if so return match = 1 and return the line number (relative to the set)
-        matchingLine = 0;
+        for(line = 0; line < 8; line=line+1) begin
+            lineArrayLRU[line] = cacheArray[index][line][3:1];
+            lineArrayMESI[line] = cacheArray[index][line][5:4];
+        end
+
         match = 0;
-        
+        matchingLine = 0;
+        matchingLineLRU = lineArrayLRU[0];
+
+        ////////////////////////////////////////////////
+        //logic to find matching tag line and LRU value
+        ////////////////////////////////////////////////
         for(line = 0; line < 8; line=line+1) begin
             currentLineForMatching = cacheArray[index][line];
             currentTag = currentLineForMatching[45:6]; //only compare the tag bits
             if(currentTag == tag) begin
                 match = 1;
                 matchingLine = line;
+                matchingLineLRU = lineArrayLRU[line];
             end
         end
-    
-    //get the Least Accessed Line in the Set
-    //least in this scheme is the largest LRU value -> so 7
+
+        ///////////////////////////////////////////////////
+    	//logic to find LRU line out of only invalid lines
+    	///////////////////////////////////////////////////
+
+    	LRUinvalidLine = 0;
+    	invalidExists = 0;
+    	firstLRUfound = 0;
+    	LRUinvalidValue = 0;
+
+        //find if invalid exists and find the starting invalid LRU for check
         for(line = 0; line < 8; line=line+1) begin
-            lineArray[line] = cacheArray[index][line][3:1];
+        	if(lineArrayMESI[line] == INVALID) begin
+        		invalidExists = 1;
+        		if(!firstLRUfound) begin
+        			firstLRUfound = 1;
+        			LRUinvalidLine = line;
+        			LRUinvalidValue = lineArrayLRU[line];
+        		end
+        	end
         end
+
+        //find the LRU of invalid lines, similar to finding max or min
+        if(invalidExists) begin
+        	for(line = 0; line < 8; line=line+1) begin
+        		if(lineArrayMESI[line] == INVALID && lineArrayLRU[line] > LRUinvalidValue) begin
+        			LRUinvalidValue = lineArrayLRU[line];
+        			LRUinvalidLine = line;
+        		end
+        	end
+        end 
         
-        if(lineArray[0] > lineArray[1] &&
-            lineArray[0] > lineArray[2] &&
-            lineArray[0] > lineArray[3] &&
-            lineArray[0] > lineArray[4] &&
-            lineArray[0] > lineArray[5] &&
-            lineArray[0] > lineArray[6] &&
-            lineArray[0] > lineArray[7]) begin
-            LRUline = 0;
-        end
-        else if(lineArray[1] >= lineArray[0] &&
-            lineArray[1] > lineArray[2] &&
-            lineArray[1] > lineArray[3] &&
-            lineArray[1] > lineArray[4] &&
-            lineArray[1] > lineArray[5] &&
-            lineArray[1] > lineArray[6] &&
-            lineArray[1] > lineArray[7]) begin
-            LRUline = 1;
-        end
-        else if(lineArray[2] >= lineArray[0] &&
-            lineArray[2] > lineArray[1] &&
-            lineArray[2] > lineArray[3] &&
-            lineArray[2] > lineArray[4] &&
-            lineArray[2] > lineArray[5] &&
-            lineArray[2] > lineArray[6] &&
-            lineArray[2] > lineArray[7]) begin
-            LRUline = 2;
-        end
-        else if(lineArray[3] >= lineArray[0] &&
-            lineArray[3] > lineArray[1] &&
-            lineArray[3] > lineArray[2] &&
-            lineArray[3] > lineArray[4] &&
-            lineArray[3] > lineArray[5] &&
-            lineArray[3] > lineArray[6] &&
-            lineArray[3] > lineArray[7]) begin
-            LRUline = 3;
-        end
-        else if(lineArray[4] >= lineArray[0] &&
-            lineArray[4] > lineArray[1] &&
-            lineArray[4] > lineArray[2] &&
-            lineArray[4] > lineArray[3] &&
-            lineArray[4] > lineArray[5] &&
-            lineArray[4] > lineArray[6] &&
-            lineArray[4] > lineArray[7]) begin
-            LRUline = 4;
-        end
-        else if(lineArray[5] >= lineArray[0] &&
-            lineArray[5] > lineArray[1] &&
-            lineArray[5] > lineArray[2] &&
-            lineArray[5] > lineArray[3] &&
-            lineArray[5] > lineArray[4] &&
-            lineArray[5] > lineArray[6] &&
-            lineArray[5] > lineArray[7]) begin
-            LRUline = 5;
-        end
-        else if(lineArray[6] > lineArray[0] &&
-            lineArray[6] > lineArray[1] &&
-            lineArray[6] > lineArray[2] &&
-            lineArray[6] > lineArray[3] &&
-            lineArray[6] > lineArray[4] &&
-            lineArray[6] > lineArray[5] &&
-            lineArray[6] > lineArray[7]) begin
-            LRUline = 6;
-        end
-        else begin
-            LRUline = 7;
-        end
+        /////////////////////////////////////////////////    
+        //get the Least Accessed Line in the Set
+        /////////////////////////////////////////////////
+    	//least in this scheme is the largest LRU value -> so 7
+
+    	LRUline = 0;
+    	LRULineValue = lineArrayLRU[0];
+    	//similar to finding max or min
+    	for(line = 0; line < 8; line=line+1) begin
+    		if(lineArrayLRU[line] > LRULineValue) begin
+    			LRUline = line;
+    			LRULineValue = lineArrayLRU[line];
+    		end
+    	end
+
+    	//////////////////////////////////////////////////
+    	//victim logic
+    	//////////////////////////////////////////////////
+    	if(invalidExists) begin
+    		victimLine = LRUinvalidLine;
+    		victimLRUvalue = LRUinvalidValue;
+    	end
+    	else begin
+    		victimLine = LRUline;
+    		victimLRUvalue = LRULineValue;
+    	end
     end
     
     
