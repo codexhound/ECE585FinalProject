@@ -1,22 +1,18 @@
-// icontest.v
-//
-// Drive the icon module to test correct mapping
 
 `timescale 1ps/1ps
 
 module cacheTestBench;
-    reg clk,rst,write;//when write is 1 then the next command will be processed, dont write next command until processing output switches off
+    reg clk,rst,write, writeI;//when write is 1 then the next command will be processed, dont write next command until processing output switches off
     //assuming a large address bitsize (60 bits)
     reg [59:0] address;
     reg [2:0] command; //read, write, invalidate,clear,datarequest
-    reg [13:0] setRead; //read a set for simulation
+    reg [13:0] setRead, setReadI; //read a set for simulation
     //least sig 2 bits of L2message is the command, rest is the address
-    wire [61:0] L2message; //return data (present and modified), write to L2, read from L2, read for ownership
-    wire processing;
+    wire [61:0] L2message, L2messageI; //return data (present and modified), write to L2, read from L2, read for ownership
     wire [45:0] way1, way2, way3, way4, way5, way6, way7, way8;
+    wire [44:0] way1I, way2I, way3I, way4I;
+    wire processingD, processingI, processing;
     integer mode;
-    
-    $value$plusargs ("MODE=%d", mode);
 
     parameter
           //input commands
@@ -37,8 +33,8 @@ module cacheTestBench;
           MODIFIED = 2'd1,
           SHARED = 2'd2,
           EXCLUSIVE = 2'd3;
-    
-    datacacheL1 L1(
+
+    datacacheL1 L1D(
         .clk(clk),
         .rst(rst),
         .write(write),
@@ -46,7 +42,7 @@ module cacheTestBench;
         .command(command),
         .setRead(setRead),
         .L2message(L2message),
-        .processing(processing),
+        .processing(processingD),
         .way1(way1),
         .way2(way2), 
         .way3(way3), 
@@ -56,14 +52,32 @@ module cacheTestBench;
         .way7(way7), 
         .way8(way8)
     );
+    
+    instructioncacheL1 L1I(
+        .clk(clk),
+        .rst(rst),
+        .write(writeI),
+        .address(address),
+        .command(command),
+        .setRead(setReadI),
+        .L2message(L2messageI),
+        .processing(processingI),
+        .way1(way1I),
+        .way2(way2I), 
+        .way3(way3I), 
+        .way4(way4I)
+    );
+
+    assign processing = processingD | processingI; //only 1 cache has to be processing for processing to be true
 
     initial begin
-    if(mode == 0) begin //do mode 0 simulation
-
-    end
-    else begin //do mode 1 simulation
-
-    end
+    $value$plusargs ("MODE=%d", mode);
+      if(mode == 0) begin //do mode 0 simulation
+  
+      end
+      else begin //do mode 1 simulation
+  
+      end
     end
 	
     integer endTime;
@@ -89,6 +103,6 @@ module cacheTestBench;
        repeat (18) @(posedge clk);
        setRead = 14'h1960;
        repeat (1) @(posedge clk);
-       $stop;
+       $finish;
     end
 endmodule

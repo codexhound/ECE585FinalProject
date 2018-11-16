@@ -5,16 +5,20 @@
 `timescale 1ps/1ps
 
 module cacheTestBench;
-    reg clk,rst,write;//when write is 1 then the next command will be processed, dont write next command until processing output switches off
+    reg clk,rst,write, writeI;//when write is 1 then the next command will be processed, dont write next command until processing output switches off
     //assuming a large address bitsize (60 bits)
     reg [59:0] address;
     reg [2:0] command; //read, write, invalidate,clear,datarequest
-    reg [13:0] setRead; //read a set for simulation
+    reg [13:0] setRead, setReadI; //read a set for simulation
     //least sig 2 bits of L2message is the command, rest is the address
-    wire [61:0] L2message; //return data (present and modified), write to L2, read from L2, read for ownership
-    wire processing;
-    wire [45:0] way1, way2, way3, way4, way5, way6, way7, way8;
+    wire [61:0] L2message, L2messageI; //return data (present and modified), write to L2, read from L2, read for ownership
+    wire [45:0] way1D, way2D, way3D, way4D, way5D, way6D, way7D, way8D;
+    wire [44:0] way1I, way2I, way3I, way4I;
+    wire processingD, processingI, processing;
+    wire [63:0] missesD, hitsD, totalD, writesD, readsD, missesI, hitsI, totalI, writesI, readsI;
+    reg [63:0] misses, hits, total, reads, writes;
     integer mode;
+    reg [63:0] counter;
 
     parameter
           //input commands
@@ -35,8 +39,8 @@ module cacheTestBench;
           MODIFIED = 2'd1,
           SHARED = 2'd2,
           EXCLUSIVE = 2'd3;
-    
-    datacacheL1 L1(
+
+    datacacheL1 L1D(
         .clk(clk),
         .rst(rst),
         .write(write),
@@ -44,16 +48,43 @@ module cacheTestBench;
         .command(command),
         .setRead(setRead),
         .L2message(L2message),
-        .processing(processing),
-        .way1(way1),
-        .way2(way2), 
-        .way3(way3), 
-        .way4(way4), 
-        .way5(way5), 
-        .way6(way6), 
-        .way7(way7), 
-        .way8(way8)
+        .processing(processingD),
+        .way1(way1D),
+        .way2(way2D), 
+        .way3(way3D), 
+        .way4(way4D), 
+        .way5(way5D), 
+        .way6(way6D), 
+        .way7(way7D), 
+        .way8(way8D),
+        .reads(readsD),
+        .writes(writesD),
+        .hits(hitsD),
+        .misses(missesD),
+        .total(totalD)
     );
+    
+    instructioncacheL1 L1I(
+        .clk(clk),
+        .rst(rst),
+        .write(writeI),
+        .address(address),
+        .command(command),
+        .setRead(setReadI),
+        .L2message(L2messageI),
+        .processing(processingI),
+        .way1(way1I),
+        .way2(way2I), 
+        .way3(way3I), 
+        .way4(way4I),
+        .reads(readsI),
+        .writes(writesI),
+        .hits(hitsI),
+        .misses(missesI),
+        .total(totalI)
+    );
+
+    assign processing = processingD | processingI; //only 1 cache has to be processing for processing to be true
 
     initial begin
     $value$plusargs ("MODE=%d", mode);
@@ -68,26 +99,39 @@ module cacheTestBench;
     integer endTime;
     initial
     begin
+        counter = 0;
+        command = READ;
+        setRead = 14'h1960;
+        setReadI = 14'h1960;
+        address = 60'h3865837; //set h1960
+        rst = 0;
         clk = 0;
-        forever
-            #1 clk = ~clk;
-	
+        write = 1;
+        writeI = 0;
+        forever #1 clk = ~clk;
+    end
+
+    initial begin
+      repeat (40) @(posedge clk);
+      $stop;
     end
     
-    integer row;
-    integer col;
-    initial
-    begin
-       rst = 0;
-       write = 1;
-       address = 60'h3865837; //set h1960
-       command = READ;
-       setRead = 0;
-       repeat (2) @(posedge clk);
-       write = 0;
-       repeat (18) @(posedge clk);
-       setRead = 14'h1960;
-       repeat (1) @(posedge clk);
-       $stop;
+    always@(posedge clk) begin
+        misses <= missesI + missesD;
+        hits <= hitsI + hitsD;
+        total <= totalI + totalD;
+        reads <= readsI + readsD;
+        writes <= writesI + writesD;
+
+        counter <= counter + 1;
+        if(processing && writeI) writeI <= 0; //turn off write, cache is processing
+        if(processing && write) write <= 0; //turn off write, cache is processing
+
+        if(counter < 20) begin
+          if(!processing && !write) write <= 1; //turn back on write, cache is done processing
+        end
+        else begin
+          if(!processing && !writeI) writeI <= 1; //turn back on write, cache is done processing
+        end
     end
 endmodule

@@ -10,51 +10,76 @@ cModel Technology
 Z0 dC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source
 vcacheTestBench
 Z1 DXx6 sv_std 3 std 0 22 WmjPaeP=7F5?QFXzJ>D[Q2
-!s110 1541709083
+Z2 !s110 1542341481
 !i10b 1
-!s100 n9MbbS8BTe9[@NN5izjzD1
-IMFLcZ?08c2N]I=B?Rim1K0
-Z2 VDg1SIo80bB@j0V0VzS_@n1
+!s100 >e9?:P9NPkEk?odhTo3G`2
+Ihkg0bh?ELP]a>^A`U[T993
+Z3 VDg1SIo80bB@j0V0VzS_@n1
 !s105 cacheTestBench_v_unit
 S1
 R0
-w1541709080
+w1542339815
 8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/cacheTestBench.v
 FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/cacheTestBench.v
 L0 7
-Z3 OP;L;10.4a;61
+Z4 OP;L;10.4a;61
 r1
 !s85 0
 31
-!s108 1541709083.000000
+Z5 !s108 1542341481.000000
 !s107 C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/cacheTestBench.v|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/cacheTestBench.v|
 !s101 -O0
 !i113 1
-Z4 o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact -O0
+Z6 o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact -O0
 ncache@test@bench
 vdatacacheL1
 R1
-!s110 1541708504
-!i10b 1
-!s100 7G?2HUc<mVzbm2mKnd^C:0
-IeBlVhM7MMLPSI^83WI9J92
 R2
+!i10b 1
+!s100 P8B74U8AkVTzdiB@T:EA21
+I0N]ac[<Z5giIUoMIiN:fK1
+R3
 !s105 datacacheL1_v_unit
 S1
 R0
-w1541708392
+w1542341478
 8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/datacacheL1.v
 FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/datacacheL1.v
-L0 25
-R3
+Z7 L0 25
+R4
 r1
 !s85 0
 31
-!s108 1541708504.000000
+R5
 !s107 C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/datacacheL1.v|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/datacacheL1.v|
 !s101 -O0
 !i113 1
-R4
+R6
 ndatacache@l1
+vinstructioncacheL1
+R1
+R2
+!i10b 1
+!s100 cT0EImWY?[fHQKY[SNR]l3
+I3b`=dnXo63PTD1RP]IP1[2
+R3
+!s105 instructioncacheL1_v_unit
+S1
+R0
+w1542341203
+8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/instructioncacheL1.v
+FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/instructioncacheL1.v
+R7
+R4
+r1
+!s85 0
+31
+R5
+!s107 C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/instructioncacheL1.v|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/instructioncacheL1.v|
+!s101 -O0
+!i113 1
+R6
+ninstructioncache@l1
