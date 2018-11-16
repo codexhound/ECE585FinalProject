@@ -227,8 +227,6 @@ module instructioncacheL1(
                                     cacheArray[index1][victimLine1][44:5] <= tag1;
                                     //update MESI bits
                                     cacheArray[index1][victimLine1][4:3] <= EXCLUSIVE;
-
-                                    processing <= 0; //done
                                 end
                                 else begin //slot is not empty, needs to be a victim
                                     cacheArray[index1][victimLine1][44:5] <= tag1;
