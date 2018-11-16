@@ -70,19 +70,18 @@ module datacacheL1(
     //first index is the set (0-15999), determined by index select bits
     //second index is the line number in that set(8) 7:0
     reg [45:0] cacheArray [15999:0][7:0]; //elaborate with smaller to test
-    
-    wire [13:0] index;
-    wire [5:0] byte_sel;
-    wire [39:0] tag;
-    
-    assign index = address[19:6];
-    assign byte_sel = address[5:0];
-    assign tag = address[59:20];
-    
+
     reg [2:0] command1;
-    reg [13:0] index1;
+    reg [13:0] index1, index;
     reg [5:0] byte_sel1;
-    reg [39:0] tag1;
+    reg [39:0] tag1, tag;
+    reg [59:0] address1;
+
+    assign index1 = address1[19:6];
+    assign index = address[19:6];
+    assign byte_sel1 = address1[5:0];
+    assign tag1 = address1[59:20];
+    assign tag = address[59:20];
         
     reg match1, match;
     reg [2:0] matchingLine1, matchingLine, matchingLineLRU, matchingLineLRU1;
@@ -105,6 +104,7 @@ module datacacheL1(
         
         processing = 0;
         LRUupdate = 0;
+        L2message = 0;
         
         for(i = 0; i < 16000; i = i + 1) begin
             for(k = 0, j = 8; j > 0 && k < 8; j = j - 1, k = k + 1) begin
@@ -151,6 +151,7 @@ module datacacheL1(
         
             processing <= 0;
             LRUupdate <= 0;
+            L2message <= 0;
 
             //reset the cache
             for(curSet = 0; curSet < 16000; curSet = curSet + 1) begin
@@ -178,9 +179,9 @@ module datacacheL1(
                victimLine1 <= victimLine;
                victimLRUvalue1 <= victimLRUvalue;
                
-               index1 <= index;
-               byte_sel1 <= byte_sel;
-               tag1 <= tag;
+               address1 <= address;
+
+               L2message <= 0; //reset the message
                
                processing <= 1;
 
@@ -189,11 +190,11 @@ module datacacheL1(
                 if(LRUupdate) begin 
                     for(LRUupdatecount = 0; LRUupdatecount < 8; LRUupdatecount = LRUupdatecount + 1) begin
                     	//increment all LRU bits that are less than the the replaced LRU
-                    	if(cacheArray[index][LRUupdatecount][3:1] < LRUcompValue && LRUupdatecount != LRULineSet) begin 
-                    	    cacheArray[index][LRUupdatecount][3:1] <= cacheArray[index][LRUupdatecount][3:1] + 1;
+                    	if(cacheArray[index1][LRUupdatecount][3:1] < LRUcompValue && LRUupdatecount != LRULineSet) begin 
+                    	    cacheArray[index1][LRUupdatecount][3:1] <= cacheArray[index1][LRUupdatecount][3:1] + 1;
                     	end
                     	else if(LRUupdatecount == LRULineSet) begin //reset victim line to 0 (MRU), this is the line that has been replaced
-                    	    cacheArray[index][LRUupdatecount][3:1] <= 0;
+                    	    cacheArray[index1][LRUupdatecount][3:1] <= 0;
                     	end
                     end
                     LRUupdate <= 0; 
@@ -218,8 +219,9 @@ module datacacheL1(
                             //check for tag, if no match, then check for LRU line
                             
                             if(!match1) begin//there was no match, cache miss
-                                //still need L2 returns here
-                                //cache miss, try to read from L2 (from the final project documentation)
+                            	//cache miss, try to read from L2 (from the final project documentation)
+                            	L2message[61:2] <= address1;
+                            	L2message[2:0] <= L2READ;
                                 
                                 misses <= misses + 1; //replace LRU line
                                 if(cacheArray[index1][victimLine1][5:4] == INVALID) begin //empty slot, goes to exclusive
@@ -231,7 +233,7 @@ module datacacheL1(
                                 else begin //slot is not empty, needs to be a victim
                                     cacheArray[index1][victimLine1][45:6] <= tag1;
                                     //MESI state remains the same (read)
-                                    cacheArray[index1][victimLine1][5:4] <= cacheArray[index][victimLine1][5:4];
+                                    cacheArray[index1][victimLine1][5:4] <= cacheArray[index1][victimLine1][5:4];
                                 end
 
                                 /////////////////////////////////
@@ -245,7 +247,7 @@ module datacacheL1(
                                 //hit, matching tag
                                 hits <= hits + 1;
                                 //snooping logic
-                                if(cacheArray[index1][matchingLine1][5:4] == MODIFIED || cacheArray[index][matchingLine1][5:4] == EXCLUSIVE) begin
+                                if(cacheArray[index1][matchingLine1][5:4] == MODIFIED || cacheArray[index1][matchingLine1][5:4] == EXCLUSIVE) begin
                                     //was a hit and it was exlusive or modified, now its shared
                                     cacheArray[index1][matchingLine1][5:4] <= SHARED;
                                 end
