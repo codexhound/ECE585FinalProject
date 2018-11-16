@@ -142,7 +142,7 @@ module instructioncacheL1(
     end
     
     reg [44:0] currentLineForMatching;
-    reg [1:0] lineArray [2:0]; //[1:0] is LRU value
+    reg [1:0] lineArray [3:0]; //[1:0] is LRU value
 
     //initialize the cache data and cache array here
 
@@ -326,15 +326,18 @@ module instructioncacheL1(
         end
         
         if(lineArray[0] > lineArray[1] &&
-            lineArray[0] > lineArray[2]) begin
+            lineArray[0] > lineArray[2] &&
+            lineArray[0] > lineArray[3]) begin
             LRUline = 0;
         end
         else if(lineArray[1] > lineArray[0] &&
-            lineArray[1] > lineArray[2]) begin
+            lineArray[1] > lineArray[2] &&
+            lineArray[1] > lineArray[3]) begin
             LRUline = 1;
         end
         else if(lineArray[2] > lineArray[0] &&
-            lineArray[2] > lineArray[1]) begin
+            lineArray[2] > lineArray[1] &&
+            lineArray[2] > lineArray[3]) begin
             LRUline = 2;
         end
         else begin
