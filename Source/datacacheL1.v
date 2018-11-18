@@ -287,23 +287,22 @@ module datacacheL1(
                     endcase
                 end
             end
-            else begin
-                //do this after simulation is complete, all commands have been completed
-                way1 <= cacheArray[setRead][0];
-                way2 <= cacheArray[setRead][1];
-                way3 <= cacheArray[setRead][2];
-                way4 <= cacheArray[setRead][3];
-                way5 <= cacheArray[setRead][4];
-                way6 <= cacheArray[setRead][5];
-                way7 <= cacheArray[setRead][6];
-                way8 <= cacheArray[setRead][7];
-            end
         end
     end
     
     
     //purely combinatorial logic
     always@(*) begin
+    
+    	way1 = cacheArray[setRead][0];
+        way2 = cacheArray[setRead][1];
+        way3 = cacheArray[setRead][2];
+        way4 = cacheArray[setRead][3];
+        way5 = cacheArray[setRead][4];
+        way6 = cacheArray[setRead][5];
+        way7 = cacheArray[setRead][6];
+        way8 = cacheArray[setRead][7];
+
         for(line = 0; line < 8; line=line+1) begin
             lineArrayLRU[line] = cacheArray[index][line][3:1];
             lineArrayMESI[line] = cacheArray[index][line][5:4];

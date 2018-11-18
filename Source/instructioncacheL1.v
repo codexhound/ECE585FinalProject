@@ -286,19 +286,18 @@ module instructioncacheL1(
                     endcase
                 end
             end
-            else begin
-                //do this after simulation is complete, all commands have been completed
-                way1 <= cacheArray[setRead][0];
-                way2 <= cacheArray[setRead][1];
-                way3 <= cacheArray[setRead][2];
-                way4 <= cacheArray[setRead][3];
-            end
         end
     end
     
     
     //purely combinatorial logic
     always@(*) begin
+    
+        way1 = cacheArray[setRead][0];
+        way2 = cacheArray[setRead][1];
+        way3 = cacheArray[setRead][2];
+        way4 = cacheArray[setRead][3];
+
         for(line = 0; line < 4; line=line+1) begin
             lineArrayLRU[line] = cacheArray[index][line][2:1];
             lineArrayMESI[line] = cacheArray[index][line][4:3];
