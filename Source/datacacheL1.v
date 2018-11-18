@@ -128,7 +128,7 @@ module datacacheL1(
     reg [3:0] curLine, curLRU;
 
     //invalid LRU logic//////////////////
-    reg invalidExists, firstLRUfound;
+    reg invalidExists;
     reg [2:0] LRUinvalidLine, LRUinvalidValue;
     /////////////////////////////////////
 
@@ -293,7 +293,7 @@ module datacacheL1(
     
     //purely combinatorial logic
     always@(*) begin
-    
+
     	way1 = cacheArray[setRead][0];
         way2 = cacheArray[setRead][1];
         way3 = cacheArray[setRead][2];
@@ -322,6 +322,7 @@ module datacacheL1(
                 match = 1;
                 matchingLine = line;
                 matchingLineLRU = lineArrayLRU[line];
+                break;
             end
         end
 
@@ -331,18 +332,15 @@ module datacacheL1(
 
     	LRUinvalidLine = 0;
     	invalidExists = 0;
-    	firstLRUfound = 0;
     	LRUinvalidValue = 0;
 
         //find if invalid exists and find the starting invalid LRU for check
         for(line = 0; line < 8; line=line+1) begin
         	if(lineArrayMESI[line] == INVALID) begin
         		invalidExists = 1;
-        		if(!firstLRUfound) begin
-        			firstLRUfound = 1;
-        			LRUinvalidLine = line;
-        			LRUinvalidValue = lineArrayLRU[line];
-        		end
+        		LRUinvalidLine = line;
+        		LRUinvalidValue = lineArrayLRU[line];
+        		break;
         	end
         end
 
