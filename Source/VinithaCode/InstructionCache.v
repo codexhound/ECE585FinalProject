@@ -7,12 +7,13 @@ module INSTRUCTION_CACHE(
 	input clk,
 	input [3:0] command,
 	input [`AddressBits-1:0] address,
-	input mode
+	input mode,
+	output reg [31:0] IC_Read_Hit = 32'b0,
+	output reg [31:0] IC_Read_Miss = 32'b0,
+	output reg [31:0] IC_Reads = 32'b0
 	);
 
-	reg [31:0] IC_Read_Hit = 32'b0;
-	reg [31:0] IC_Read_Miss = 32'b0;
-	reg [31:0] IC_Reads = 32'b0;
+	
 	
 	//MESI protocal
 	parameter 

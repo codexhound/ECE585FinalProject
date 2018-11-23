@@ -17,19 +17,44 @@ module CACHE_SIMULATION(
 	parameter SNOOP = 4'd4;
 	parameter RESET = 4'd8;
 	parameter PRINT = 4'd9;
+
+	//statistics wires
+	wire [31:0] DC_Read_Hit,DC_Read_Miss,DC_Reads,DC_Write_Hit,DC_Write_Miss,DC_Writes,IC_Read_Hit,IC_Read_Miss,IC_Reads;
 	
 	DATA_CACHE d_cache(
 		.clk(clk),
 		.command(command),
 		.address(address),
-		.mode(mode)
+		.mode(mode),
+		.DC_Read_Hit(DC_Read_Hit),
+		.DC_Read_Miss(DC_Read_Miss),
+		.DC_Reads(DC_Reads),
+		.DC_Write_Hit(DC_Write_Hit),
+		.DC_Write_Miss(DC_Write_Miss),
+		.DC_Writes(DC_Writes)
 		);
 	
 	INSTRUCTION_CACHE i_cache(
 		.clk(clk),
 		.command(command),
 		.address(address),
-		.mode(mode)
+		.mode(mode),
+		.IC_Read_Hit(IC_Read_Hit),
+		.IC_Read_Miss(IC_Read_Miss),
+		.IC_Reads(IC_Reads)
 		);
+
+	STATISTICS stats_o(
+		.done(done),
+		.DC_Read_Hit(DC_Read_Hit),
+		.DC_Read_Miss(DC_Read_Miss),
+		.DC_Reads(DC_Reads),
+		.DC_Write_Hit(DC_Write_Hit),
+		.DC_Write_Miss(DC_Write_Miss),
+		.DC_Writes(DC_Writes),
+		.IC_Read_Hit(IC_Read_Hit),
+		.IC_Read_Miss(IC_Read_Miss),
+		.IC_Reads(IC_Reads)
+	);
 
 endmodule

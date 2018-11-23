@@ -9,13 +9,13 @@ z2
 cModel Technology
 dC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source
 vCACHE_SIMULATION
-Z0 !s110 1543002365
+Z0 !s110 1543006555
 !i10b 1
-!s100 311Gk;LifLmdIE=7@Iza_0
-I^=0@lRGV2KQeFPeRX=P5H3
+!s100 HDMgcCA;kh8>^<m:AFP`01
+InWnS`@I3UcZz03MYb@0<d3
 Z1 VDg1SIo80bB@j0V0VzS_@n1
 Z2 dC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode
-w1543002070
+w1543006491
 8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v
 FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v
 L0 3
@@ -23,7 +23,7 @@ Z3 OP;L;10.4a;61
 r1
 !s85 0
 31
-Z4 !s108 1543002365.000000
+Z4 !s108 1543006555.000000
 !s107 C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v|
 !s101 -O0
@@ -33,11 +33,11 @@ n@c@a@c@h@e_@s@i@m@u@l@a@t@i@o@n
 vDATA_CACHE
 R0
 !i10b 1
-!s100 n_S<QS4gEmOATN>Xz`]082
-I4DA7B^o_RTLLbooPz32@i0
+!s100 A=Yl]B4a_0O6?;Dz<7CgR1
+IVOcU@SQC=<CYc3a_D]B_R1
 R1
 R2
-w1543002361
+w1543006134
 8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/DataCache.v
 FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/DataCache.v
 L0 6
@@ -53,13 +53,13 @@ R4
 R5
 n@d@a@t@a_@c@a@c@h@e
 vINSTRUCTION_CACHE
-Z6 !s110 1543002366
+R0
 !i10b 1
-!s100 S@Nb=@o4U8W;<;?L>@kkh3
-IQ3EYn15OhB9EKRV1mkJ>70
+!s100 3=TiW7@D>M4l0E=2UVkh>0
+I^;zdn5PT4FY>11^DEgUW=2
 R1
 R2
-w1543002207
+w1543006121
 8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/InstructionCache.v
 FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/InstructionCache.v
 L0 6
@@ -75,13 +75,13 @@ R4
 R5
 n@i@n@s@t@r@u@c@t@i@o@n_@c@a@c@h@e
 vSTATISTICS
-R6
+R0
 !i10b 1
 !s100 @EUnaFIjT9KeQD=zI>Cn31
 I1aXRGhd=@:^PJ=Zo`JZ;e3
 R1
 R2
-w1543002037
+w1543006550
 8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/Statistics.v
 FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/Statistics.v
 L0 2
@@ -89,7 +89,7 @@ R3
 r1
 !s85 0
 31
-!s108 1543002366.000000
+R4
 !s107 C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/Statistics.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/Statistics.v|
 !s101 -O0
