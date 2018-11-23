@@ -1,16 +1,16 @@
-C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/datacacheL1.v {1 {vlog -work work -sv -stats=none C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/datacacheL1.v
-Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
--- Compiling module datacacheL1
-
-Top level modules:
-	datacacheL1
-
-} {} {}} C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/instructioncacheL1.v {1 {vlog -work work -sv -stats=none C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/instructioncacheL1.v
+C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/instructioncacheL1.v {1 {vlog -work work -sv -stats=none C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/instructioncacheL1.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
 -- Compiling module instructioncacheL1
 
 Top level modules:
 	instructioncacheL1
+
+} {} {}} C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/datacacheL1.v {1 {vlog -work work -sv -stats=none C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/datacacheL1.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module datacacheL1
+
+Top level modules:
+	datacacheL1
 
 } {} {}} C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/cacheTestBench.v {1 {vlog -work work -sv -stats=none C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/cacheTestBench.v
 Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015

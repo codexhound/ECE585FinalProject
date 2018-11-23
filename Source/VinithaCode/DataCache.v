@@ -7,14 +7,15 @@ module DATA_CACHE(
 	input clk,
 	input [3:0] command,
 	input [`AddressBits-1:0] address,
-	input mode,
-	output reg [31:0] DC_Read_Hit = 32'b0,
-	output reg [31:0] DC_Read_Miss = 32'b0,
-	output reg [31:0] DC_Reads = 32'b0,
-	output reg [31:0] DC_Write_Hit = 32'b0,
-	output reg [31:0] DC_Write_Miss = 32'b0,
-	output reg [31:0] DC_Writes = 32'b0
+	input mode
 	);
+
+	reg [31:0] DC_Read_Hit = 32'b0;
+	reg [31:0] DC_Read_Miss = 32'b0;
+	reg [31:0] DC_Reads = 32'b0;
+	reg [31:0] DC_Write_Hit = 32'b0;
+	reg [31:0] DC_Write_Miss = 32'b0;
+	reg [31:0] DC_Writes = 32'b0;
 	
 	//MESI protocal
 	parameter 
@@ -377,6 +378,12 @@ module DATA_CACHE(
 					$display("------------------------------------------------------------------");
 				end
 			end
+			$display("Data Cache Usage Statistics:");
+			$display("Number of cache reads		: %d", DC_Reads);
+			$display("Number of cache writes	: %d", DC_Writes);
+			$display("Number of cache hits		: %d", DC_Read_Hit + DC_Write_Hit);
+			$display("Number of cache misses	: %d", DC_Read_Miss + DC_Write_Miss);
+			$display("Cache	hit ratio		: %.2f%% \n", (DC_Reads + DC_Writes) != 0 ? 100.00 * (DC_Read_Hit + DC_Write_Hit)/(DC_Reads + DC_Writes) : 0);
 			$display("                     END OF DATA CACHE CONTENTS                   ");
 			$display("__________________________________________________________________");		
 		end

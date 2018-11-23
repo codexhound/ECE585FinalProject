@@ -1,0 +1,120 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source
+vCACHE_SIMULATION
+Z0 !s110 1543002365
+!i10b 1
+!s100 311Gk;LifLmdIE=7@Iza_0
+I^=0@lRGV2KQeFPeRX=P5H3
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+Z2 dC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode
+w1543002070
+8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v
+FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v
+L0 3
+Z3 OP;L;10.4a;61
+r1
+!s85 0
+31
+Z4 !s108 1543002365.000000
+!s107 C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v|
+!s101 -O0
+!i113 1
+Z5 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact -O0
+n@c@a@c@h@e_@s@i@m@u@l@a@t@i@o@n
+vDATA_CACHE
+R0
+!i10b 1
+!s100 n_S<QS4gEmOATN>Xz`]082
+I4DA7B^o_RTLLbooPz32@i0
+R1
+R2
+w1543002361
+8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/DataCache.v
+FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/DataCache.v
+L0 6
+R3
+r1
+!s85 0
+31
+R4
+!s107 C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/DataCache.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/DataCache.v|
+!s101 -O0
+!i113 1
+R5
+n@d@a@t@a_@c@a@c@h@e
+vINSTRUCTION_CACHE
+Z6 !s110 1543002366
+!i10b 1
+!s100 S@Nb=@o4U8W;<;?L>@kkh3
+IQ3EYn15OhB9EKRV1mkJ>70
+R1
+R2
+w1543002207
+8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/InstructionCache.v
+FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/InstructionCache.v
+L0 6
+R3
+r1
+!s85 0
+31
+R4
+!s107 C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/InstructionCache.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/InstructionCache.v|
+!s101 -O0
+!i113 1
+R5
+n@i@n@s@t@r@u@c@t@i@o@n_@c@a@c@h@e
+vSTATISTICS
+R6
+!i10b 1
+!s100 @EUnaFIjT9KeQD=zI>Cn31
+I1aXRGhd=@:^PJ=Zo`JZ;e3
+R1
+R2
+w1543002037
+8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/Statistics.v
+FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/Statistics.v
+L0 2
+R3
+r1
+!s85 0
+31
+!s108 1543002366.000000
+!s107 C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/Statistics.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/Statistics.v|
+!s101 -O0
+!i113 1
+R5
+n@s@t@a@t@i@s@t@i@c@s
+vtb_CacheSim
+R0
+!i10b 1
+!s100 H4cSXV?0?13;d?PVm9BjT2
+I7ZLiOcoOPZKdY9gzE]amn2
+R1
+R2
+w1542702314
+8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/tb_CacheSim.v
+FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/tb_CacheSim.v
+L0 5
+R3
+r1
+!s85 0
+31
+R4
+!s107 C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/tb_CacheSim.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/tb_CacheSim.v|
+!s101 -O0
+!i113 1
+R5
+ntb_@cache@sim

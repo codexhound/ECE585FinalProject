@@ -1,0 +1,31 @@
+C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v {1 {vlog -work work -stats=none C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module CACHE_SIMULATION
+
+Top level modules:
+	CACHE_SIMULATION
+
+} {} {}} C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/InstructionCache.v {2 {vlog -work work -stats=none C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/InstructionCache.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module INSTRUCTION_CACHE
+** Warning: C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/InstructionCache.v(255): (vlog-2250) Function "UpdateInstruction_LRU" has no return value assignment.
+
+
+Top level modules:
+	INSTRUCTION_CACHE
+
+} {} {}} C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/tb_CacheSim.v {1 {vlog -work work -stats=none C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/tb_CacheSim.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module tb_CacheSim
+
+Top level modules:
+	tb_CacheSim
+
+} {} {}} C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/Statistics.v {1 {vlog -work work -stats=none C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/Statistics.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module STATISTICS
+
+Top level modules:
+	STATISTICS
+
+} {} {}}

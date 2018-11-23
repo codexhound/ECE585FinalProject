@@ -1,0 +1,171 @@
+# //  ModelSim PE Student Edition 10.4a Apr  7 2015 
+# //
+# //  Copyright 1991-2015 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //  THIS DOCUMENT CONTAINS TRADE SECRETS AND COMMERCIAL OR FINANCIAL
+# //  INFORMATION THAT ARE PRIVILEGED, CONFIDENTIAL, AND EXEMPT FROM
+# //  DISCLOSURE UNDER THE FREEDOM OF INFORMATION ACT, 5 U.S.C. SECTION 552.
+# //  FURTHERMORE, THIS INFORMATION IS PROHIBITED FROM DISCLOSURE UNDER
+# //  THE TRADE SECRETS ACT, 18 U.S.C. SECTION 1905.
+# //
+# // NOT FOR CORPORATE OR PRODUCTION USE.
+# // THE ModelSim PE Student Edition IS NOT A SUPPORTED PRODUCT.
+# // FOR HIGHER EDUCATION PURPOSES ONLY
+# //
+# vsim -c -do "run -all" "+MODE=0" "+TRACE=testfile2_scenario.dat" tb_CacheSim 
+# Start time: 11:53:33 on Nov 23,2018
+# Loading work.tb_CacheSim
+# Loading work.CACHE_SIMULATION
+# Loading work.DATA_CACHE
+# Loading work.INSTRUCTION_CACHE
+# run -all
+# __________________________________________________________________
+#                                                                   
+#                         DATA CACHE CONTENTS                       
+# __________________________________________________________________
+# Set Index : 00003784
+# Way:	 1	 2	 3	 4	 5	 6	 7	 8
+# Tag:	984	116	100	999	645	846	211	777
+# LRU:	000	001	010	011	100	101	110	111
+# MESI:	 E	 E	 E	 E	 E	 E	 E	 E
+#                          ** END OF SET **                         
+# ------------------------------------------------------------------
+# Data Cache Usage Statistics:
+# Number of cache reads		:          8
+# Number of cache writes	:          0
+# Number of cache hits		:          0
+# Number of cache misses	:          8
+# Cache	hit ratio		: 0.00% 
+# 
+#                      END OF DATA CACHE CONTENTS                   
+# __________________________________________________________________
+# ____________________________________
+#                                     
+#     INSTRUCTION CACHE CONTENTS      
+# ____________________________________
+# Instruction Cache Usage Statistics:
+# Number of cache reads		:          0
+# Number of cache hits		:          0
+# Number of cache misses	:          0
+# Cache	hit ratio		: 0.00% 
+# 
+#   END OF INSTRUCTION CACHE CONTENTS 
+# ____________________________________
+# __________________________________________________________________
+#                                                                   
+#                         DATA CACHE CONTENTS                       
+# __________________________________________________________________
+# Set Index : 00003784
+# Way:	 1	 2	 3	 4	 5	 6	 7	 8
+# Tag:	edc	116	333	aaa	abc	846	100	777
+# LRU:	110	100	000	111	011	001	101	010
+# MESI:	 M	 M	 M	 I	 M	 S	 M	 S
+#                          ** END OF SET **                         
+# ------------------------------------------------------------------
+# Data Cache Usage Statistics:
+# Number of cache reads		:         12
+# Number of cache writes	:          7
+# Number of cache hits		:          5
+# Number of cache misses	:         14
+# Cache	hit ratio		: 26.32% 
+# 
+#                      END OF DATA CACHE CONTENTS                   
+# __________________________________________________________________
+# ____________________________________
+#                                     
+#     INSTRUCTION CACHE CONTENTS      
+# ____________________________________
+# Instruction Cache Usage Statistics:
+# Number of cache reads		:          0
+# Number of cache hits		:          0
+# Number of cache misses	:          0
+# Cache	hit ratio		: 0.00% 
+# 
+#   END OF INSTRUCTION CACHE CONTENTS 
+# ____________________________________
+# __________________________________________________________________
+#                                                                   
+#                         DATA CACHE CONTENTS                       
+# __________________________________________________________________
+# Set Index : 00003784
+# Way:	 1	 2	 3	 4	 5	 6	 7	 8
+# Tag:	edc	116	333	aaa	abc	846	100	777
+# LRU:	101	100	000	110	011	001	111	010
+# MESI:	 M	 M	 M	 I	 M	 S	 I	 S
+#                          ** END OF SET **                         
+# ------------------------------------------------------------------
+# Data Cache Usage Statistics:
+# Number of cache reads		:         12
+# Number of cache writes	:          7
+# Number of cache hits		:          5
+# Number of cache misses	:         14
+# Cache	hit ratio		: 26.32% 
+# 
+#                      END OF DATA CACHE CONTENTS                   
+# __________________________________________________________________
+# ____________________________________
+#                                     
+#     INSTRUCTION CACHE CONTENTS      
+# ____________________________________
+# Set Index : 00001580
+# Way:	 1	 2	 3	 4
+# Tag:	000	xxx	xxx	xxx
+# LRU:	11	00	01	10
+# MESI:	 S	 I	 I	 I
+#         ** END OF SET **          
+# ------------------------------------
+# Instruction Cache Usage Statistics:
+# Number of cache reads		:          2
+# Number of cache hits		:          1
+# Number of cache misses	:          1
+# Cache	hit ratio		: 50.00% 
+# 
+#   END OF INSTRUCTION CACHE CONTENTS 
+# ____________________________________
+# __________________________________________________________________
+#                                                                   
+#                         DATA CACHE CONTENTS                       
+# __________________________________________________________________
+# Set Index : 00003784
+# Way:	 1	 2	 3	 4	 5	 6	 7	 8
+# Tag:	edc	116	333	aaa	abc	846	100	777
+# LRU:	000	001	010	011	100	101	110	111
+# MESI:	 I	 I	 I	 I	 I	 I	 I	 I
+#                          ** END OF SET **                         
+# ------------------------------------------------------------------
+# Data Cache Usage Statistics:
+# Number of cache reads		:          0
+# Number of cache writes	:          0
+# Number of cache hits		:          0
+# Number of cache misses	:          0
+# Cache	hit ratio		: 0.00% 
+# 
+#                      END OF DATA CACHE CONTENTS                   
+# __________________________________________________________________
+# ____________________________________
+#                                     
+#     INSTRUCTION CACHE CONTENTS      
+# ____________________________________
+# Set Index : 00001580
+# Way:	 1	 2	 3	 4
+# Tag:	000	xxx	xxx	xxx
+# LRU:	00	01	10	11
+# MESI:	 I	 I	 I	 I
+#         ** END OF SET **          
+# ------------------------------------
+# Instruction Cache Usage Statistics:
+# Number of cache reads		:          0
+# Number of cache hits		:          0
+# Number of cache misses	:          0
+# Cache	hit ratio		: 0.00% 
+# 
+#   END OF INSTRUCTION CACHE CONTENTS 
+# ____________________________________
+# ** Note: $stop    : C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/tb_CacheSim.v(77)
+#    Time: 600 ns  Iteration: 0  Instance: /tb_CacheSim
+# Break in Module tb_CacheSim at C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/tb_CacheSim.v line 77
+# Stopped at C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/tb_CacheSim.v line 77
