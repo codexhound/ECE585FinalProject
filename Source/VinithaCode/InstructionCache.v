@@ -1,3 +1,12 @@
+/*
+// ECE 485/585: Microprocessor System Design
+// Final Project
+// Fall 2018
+// File : InstructionCache.v
+// Authors : Vinitha Baddam, Michael Bourquin and Hima Ethakota
+// Description : This module is for all the instruction cache operations
+*/
+
 `define InstructionCacheWay 4  //InstructionCacheWay
 `define InstructionCacheSet 16*1024  //InstructionCacheset
 `define CacheLineSize 64  //linelength
@@ -12,8 +21,6 @@ module INSTRUCTION_CACHE(
 	output reg [31:0] IC_Read_Miss = 32'b0,
 	output reg [31:0] IC_Reads = 32'b0
 	);
-
-	
 	
 	//MESI protocal
 	parameter 
@@ -31,7 +38,8 @@ module INSTRUCTION_CACHE(
 		//SNOOP = 4'd4,
 		RESET = 4'd8,
 		PRINT = 4'd9;
-	  
+	
+	//Instruction cache index, offset, tag and LRU bits  
 	parameter   
 		IC_IndexBits = $clog2(`InstructionCacheSet),
 		IC_OffsetBits = $clog2(`CacheLineSize),
@@ -53,6 +61,7 @@ module INSTRUCTION_CACHE(
 	reg [IC_TagBits-1:0] IC_Tag;
 	reg [IC_LRUBits-1:0] IC_LRU;
 
+	//These are used to print the cache content
 	reg [IC_TagBits-1:0] print_Tag [0:`InstructionCacheWay];
 	reg [IC_LRUBits-1:0] print_LRU [0:`InstructionCacheWay];
 	reg [1:0] print_MESI [0:`InstructionCacheWay];
@@ -62,15 +71,16 @@ module INSTRUCTION_CACHE(
 
 	integer way, found, replaced, w, s, temp;	
 	reg print;
-
+	
+	//Execute below on clock positive edge
 	always @(posedge clk)
 	begin
-	
+		//Parsing address to get offset, index and tag bits
 		Offset = address[IC_OffsetBits-1:0];
 		Index = address[IC_OffsetBits+IC_IndexBits-1:IC_OffsetBits];
 		Tag = address[`AddressBits-1:`AddressBits-IC_TagBits];
 		
-		//$display("command %d address %h Index %h, Tag %h", command, address, Index, Tag);
+		//Initially found and replaced values will be false
 		found=0;
 		replaced=0;
 
@@ -78,8 +88,8 @@ module INSTRUCTION_CACHE(
 		//2 instruction fetch (a read request to L1 instruction cache)
 		INSTRUCTION_FETCH:
 		begin
-			IC_Reads=IC_Reads+1;
-			
+			IC_Reads=IC_Reads+1;  //reads counter
+			//see if the tag of the fetch address matches any tag in those set lines
 			for(way=0;way<`InstructionCacheWay;way=way+1)
 			begin			
 				InstructionLine=InstructionCache[way][Index];
@@ -88,7 +98,7 @@ module INSTRUCTION_CACHE(
 			
 				if((MESI_Bits != Invalid) && (IC_Tag == Tag)) //if valid and tag match
 				begin
-					IC_Read_Hit=IC_Read_Hit+1;
+					IC_Read_Hit=IC_Read_Hit+1;  //read hit counter
 					found=1;	//data in cache found!
 					
 					IC_LRU = InstructionLine[IC_TagBits+IC_LRUBits-1:IC_TagBits];
@@ -96,16 +106,15 @@ module INSTRUCTION_CACHE(
 					InstructionCache[way][Index]=InstructionLine;				
 				end			
 			end
-			
+			// If tag is not found in the cache set from above
 			if(found==0)
 			begin
-				IC_Read_Miss=IC_Read_Miss+1;
+				IC_Read_Miss=IC_Read_Miss+1;  //write miss counter
 				
 				if(mode == 1)
 					$display("Read from L2 %h", address); //add lru and write
 
-				//find an invalid way in set and put tag bits and set lru 111 and decreament lru for other ways by 1
-				
+				//find an invalid way in set and put tag bits and set lru 111 and decreament lru for other ways by 1			
 				for(way=0;way<`InstructionCacheWay;way=way+1)
 				begin
 					InstructionLine=InstructionCache[way][Index];
@@ -134,7 +143,7 @@ module INSTRUCTION_CACHE(
 						if (IC_LRU == 0 && replaced == 0)
 						begin
 							replaced = 1;
-						// if mesi bit modified write to L2 and replace,ie, put tag bits there 
+							// if mesi bit modified write to L2 and replace,ie, put tag bits there 
 							if(MESI_Bits == Modified)
 							begin
 								Offset = 0;
@@ -148,7 +157,7 @@ module INSTRUCTION_CACHE(
 							InstructionCache[way][Index] = InstructionLine;
 						end
 					end
-					IC_LRU = 0;
+					IC_LRU = 0;  ////To replace '0'th LRU element
 				end
 			end
 							
@@ -158,7 +167,7 @@ module INSTRUCTION_CACHE(
 		//3 invalidate command from L2
 		INVALIDATE:
 		begin
-		// look up for line by going to set n comparing tags in ways
+			// look up for line by going to set n comparing tags in ways
 			for(way=0;way<`InstructionCacheWay;way=way+1)
 			begin				
 				InstructionLine = InstructionCache[way][Index];
@@ -170,6 +179,7 @@ module INSTRUCTION_CACHE(
 					MESI_Bits = Invalid; //if line found then set MESI_Bits as invalid
 					IC_LRU = InstructionLine[IC_TagBits+IC_LRUBits-1:IC_TagBits];
 					InstructionLine[IC_TagBits+IC_LRUBits+MESI_Size-1:IC_TagBits+IC_LRUBits] = MESI_Bits;
+					InstructionLine[IC_TagBits-1:0] = 12'bx;
 					InstructionCache[way][Index] = InstructionLine;
 				end
 			end
@@ -185,12 +195,17 @@ module INSTRUCTION_CACHE(
 				for (w=0; w<`InstructionCacheWay; w=w+1)
 				begin
 					InstructionLine=InstructionCache[w][s];
+					//set all the cache MESI bits to Invalid
 					InstructionLine[IC_TagBits + IC_LRUBits + MESI_Size-1 : IC_TagBits + IC_LRUBits] = Invalid;
+					//Initially assign LRU bits to each cache line in a set to line number 
 					InstructionLine[IC_TagBits + IC_LRUBits-1 : IC_TagBits] = w;
+					//set tag bits to x
+					InstructionLine[IC_TagBits-1:0] = 12'bx;
 					InstructionCache[w][s] = InstructionLine;
 				end
 			end
 
+			//set all summary paramentes to '0' on reset
 			IC_Read_Hit = 32'b0;
 			IC_Read_Miss = 32'b0;
 			IC_Reads = 32'b0;
@@ -241,11 +256,6 @@ module INSTRUCTION_CACHE(
 					$display("------------------------------------");
 				end
 			end
-			$display("Instruction Cache Usage Statistics:");
-			$display("Number of cache reads		: %d", IC_Reads);
-			$display("Number of cache hits		: %d", IC_Read_Hit);
-			$display("Number of cache misses	: %d", IC_Read_Miss);
-			$display("Cache	hit ratio		: %.2f%% \n", IC_Reads != 0 ? 100.00*(IC_Read_Hit)/(IC_Reads) : 0);
 			$display("  END OF INSTRUCTION CACHE CONTENTS ");
 			$display("____________________________________");		
 		end
@@ -253,6 +263,7 @@ module INSTRUCTION_CACHE(
 		endcase	
 	end
 
+	//function to update LRU values of each line in a set based on line reference
 	function UpdateInstruction_LRU;
 		input [IC_LRUBits-1:0] LRU;
 		input [IC_IndexBits-1:0] index;
@@ -260,15 +271,18 @@ module INSTRUCTION_CACHE(
 		integer w;
 
 		begin 
+			//update the LRU bits of each cache line in a set
 			for (w=0; w<`InstructionCacheWay; w=w+1)
 			begin
 				InstructionLine = InstructionCache[w][index];
 				IC_LRU = InstructionLine[IC_TagBits+IC_LRUBits-1:IC_TagBits];
+				//if it is a most recently used/refered cache line then set the LRU bits to 111
 				if(IC_LRU == LRU)
 				begin
 					InstructionLine[IC_TagBits+IC_LRUBits-1:IC_TagBits] = `InstructionCacheWay-1;
 					InstructionCache[w][index] = InstructionLine;
 				end
+				//LRU bits higher than the most recently used bits are decremented by 1 
 				else if(IC_LRU > LRU)
 				begin
 					InstructionLine[IC_TagBits+IC_LRUBits-1:IC_TagBits] = IC_LRU-1;
@@ -278,6 +292,7 @@ module INSTRUCTION_CACHE(
 		end
 	endfunction
 
+	//function to get MESI ids for a given 2 bit MESI value
 	function [8:0] Get_MESI_ID;
 		input [1:0] MESI;
 		

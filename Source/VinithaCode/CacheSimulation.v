@@ -1,3 +1,12 @@
+/*
+// ECE 485/585: Microprocessor System Design
+// Final Project
+// Fall 2018
+// File : CacheSimulation.v
+// Authors : Vinitha Baddam, Michael Bourquin and Hima Ethakota
+// Description : This module makes a call to all other modules
+*/
+
 `define AddressBits 32  //Addressbits
 
 module CACHE_SIMULATION(
@@ -17,44 +26,56 @@ module CACHE_SIMULATION(
 	parameter SNOOP = 4'd4;
 	parameter RESET = 4'd8;
 	parameter PRINT = 4'd9;
-
-	//statistics wires
-	wire [31:0] DC_Read_Hit,DC_Read_Miss,DC_Reads,DC_Write_Hit,DC_Write_Miss,DC_Writes,IC_Read_Hit,IC_Read_Miss,IC_Reads;
+		
+	//signals for statistics
+	wire [31:0]
+		d_read_hit,
+		d_read_miss,
+		d_reads,
+		d_write_hit,
+		d_write_miss,
+		d_writes,
+		i_hit,	
+		i_miss,
+		i_reads;
 	
+	//To call data cache
 	DATA_CACHE d_cache(
 		.clk(clk),
 		.command(command),
 		.address(address),
 		.mode(mode),
-		.DC_Read_Hit(DC_Read_Hit),
-		.DC_Read_Miss(DC_Read_Miss),
-		.DC_Reads(DC_Reads),
-		.DC_Write_Hit(DC_Write_Hit),
-		.DC_Write_Miss(DC_Write_Miss),
-		.DC_Writes(DC_Writes)
+		.DC_Read_Hit(d_read_hit),
+		.DC_Read_Miss(d_read_miss),
+		.DC_Reads(d_reads),
+		.DC_Write_Hit(d_write_hit),
+		.DC_Write_Miss(d_write_miss),
+		.DC_Writes(d_writes)
 		);
 	
+	//To call instruction cache
 	INSTRUCTION_CACHE i_cache(
 		.clk(clk),
 		.command(command),
 		.address(address),
 		.mode(mode),
-		.IC_Read_Hit(IC_Read_Hit),
-		.IC_Read_Miss(IC_Read_Miss),
-		.IC_Reads(IC_Reads)
+		.IC_Read_Hit(i_hit),
+		.IC_Read_Miss(i_miss),
+		.IC_Reads(i_reads)
 		);
-
-	STATISTICS stats_o(
+	
+	//To print statistics on done status	
+	STATISTICS stats(
 		.done(done),
-		.DC_Read_Hit(DC_Read_Hit),
-		.DC_Read_Miss(DC_Read_Miss),
-		.DC_Reads(DC_Reads),
-		.DC_Write_Hit(DC_Write_Hit),
-		.DC_Write_Miss(DC_Write_Miss),
-		.DC_Writes(DC_Writes),
-		.IC_Read_Hit(IC_Read_Hit),
-		.IC_Read_Miss(IC_Read_Miss),
-		.IC_Reads(IC_Reads)
-	);
+		.DC_Read_Hit(d_read_hit),
+		.DC_Read_Miss(d_read_miss),
+		.DC_Reads(d_reads),
+		.DC_Write_Hit(d_write_hit),
+		.DC_Write_Miss(d_write_miss),
+		.DC_Writes(d_writes),
+		.IC_Read_Hit(i_hit),
+		.IC_Read_Miss(i_miss),
+		.IC_Reads(i_reads)
+		);
 
 endmodule

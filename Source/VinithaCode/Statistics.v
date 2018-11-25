@@ -1,3 +1,12 @@
+/*
+// ECE 485/585: Microprocessor System Design
+// Final Project
+// Fall 2018
+// File : Statistics.v
+// Authors : Vinitha Baddam, Michael Bourquin and Hima Ethakota
+// Description : This module is for printing statistics
+*/
+
 
 module STATISTICS(
 	input done,
@@ -12,6 +21,7 @@ module STATISTICS(
 	input [31:0] IC_Reads
 	);
 	
+	//Execute below when done is true
 	always @(posedge done)
 	begin
 		$display("Data Cache Usage Statistics:");
