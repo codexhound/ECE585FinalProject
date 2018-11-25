@@ -9,112 +9,112 @@ z2
 cModel Technology
 dC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source
 vCACHE_SIMULATION
-Z0 !s110 1543006555
+Z0 !s110 1543182503
 !i10b 1
-!s100 HDMgcCA;kh8>^<m:AFP`01
-InWnS`@I3UcZz03MYb@0<d3
+!s100 [jmO0E2L?3e7Dk<CeF0P[2
+I:MHAZg3hmjl[X@:7nRQKK3
 Z1 VDg1SIo80bB@j0V0VzS_@n1
 Z2 dC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode
-w1543006491
+Z3 w1543182124
 8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v
 FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v
-L0 3
-Z3 OP;L;10.4a;61
+L0 12
+Z4 OP;L;10.4a;61
 r1
 !s85 0
 31
-Z4 !s108 1543006555.000000
+Z5 !s108 1543182503.000000
 !s107 C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v|
 !s101 -O0
 !i113 1
-Z5 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact -O0
+Z6 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact -O0
 n@c@a@c@h@e_@s@i@m@u@l@a@t@i@o@n
 vDATA_CACHE
 R0
 !i10b 1
-!s100 A=Yl]B4a_0O6?;Dz<7CgR1
-IVOcU@SQC=<CYc3a_D]B_R1
+!s100 <9JTWDdd`^=S;0<<O2B[21
+IGoG1IGQF3J_43gmgSN33O3
 R1
 R2
-w1543006134
+w1543182323
 8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/DataCache.v
 FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/DataCache.v
-L0 6
-R3
+Z7 L0 15
+R4
 r1
 !s85 0
 31
-R4
+R5
 !s107 C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/DataCache.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/DataCache.v|
 !s101 -O0
 !i113 1
-R5
+R6
 n@d@a@t@a_@c@a@c@h@e
 vINSTRUCTION_CACHE
 R0
 !i10b 1
-!s100 3=TiW7@D>M4l0E=2UVkh>0
-I^;zdn5PT4FY>11^DEgUW=2
+!s100 YGBWAT4dm@5RN:k8BH99W0
+IYzCh?2_D4@G26G?6ilHQE2
 R1
 R2
-w1543006121
+w1543182433
 8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/InstructionCache.v
 FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/InstructionCache.v
-L0 6
-R3
+R7
+R4
 r1
 !s85 0
 31
-R4
+R5
 !s107 C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/InstructionCache.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/InstructionCache.v|
 !s101 -O0
 !i113 1
-R5
+R6
 n@i@n@s@t@r@u@c@t@i@o@n_@c@a@c@h@e
 vSTATISTICS
 R0
 !i10b 1
-!s100 @EUnaFIjT9KeQD=zI>Cn31
-I1aXRGhd=@:^PJ=Zo`JZ;e3
+!s100 bd4UY3E]8Ea1C2A;:0RY?3
+ICk_jf]03:C[D_S:Go7G9b0
 R1
 R2
-w1543006550
+R3
 8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/Statistics.v
 FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/Statistics.v
-L0 2
-R3
+L0 11
+R4
 r1
 !s85 0
 31
-R4
+R5
 !s107 C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/Statistics.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/Statistics.v|
 !s101 -O0
 !i113 1
-R5
+R6
 n@s@t@a@t@i@s@t@i@c@s
 vtb_CacheSim
-R0
+!s110 1543182502
 !i10b 1
-!s100 H4cSXV?0?13;d?PVm9BjT2
-I7ZLiOcoOPZKdY9gzE]amn2
+!s100 :Tib_[OLiV<jQBK@``KTK2
+I`14=K3UW:e1^<@E9`8KA]1
 R1
 R2
-w1542702314
+R3
 8C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/tb_CacheSim.v
 FC:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/tb_CacheSim.v
-L0 5
-R3
+L0 14
+R4
 r1
 !s85 0
 31
-R4
+!s108 1543182502.000000
 !s107 C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/tb_CacheSim.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/tb_CacheSim.v|
 !s101 -O0
 !i113 1
-R5
+R6
 ntb_@cache@sim

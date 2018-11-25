@@ -395,6 +395,18 @@ module DATA_CACHE(
 					$display("------------------------------------------------------------------");
 				end
 			end
+			/*                                                                                */
+			/*                 Just for testing purposes, remove for final                    */
+			/*                                                                                */
+			$display("Data Cache Usage Statistics:");
+			$display("Number of cache reads		: %d", DC_Reads);
+			$display("Number of cache writes	: %d", DC_Writes);
+			$display("Number of cache hits		: %d", DC_Read_Hit + DC_Write_Hit);
+			$display("Number of cache misses	: %d", DC_Read_Miss + DC_Write_Miss);
+			$display("Cache	hit ratio		: %.2f%% \n", (DC_Reads + DC_Writes) != 0 ? 100.00 * (DC_Read_Hit + DC_Write_Hit)/(DC_Reads + DC_Writes) : 0);
+			/*                                                                                */
+			/*                                                                                */
+			/*                                                                                */
 			$display("                     END OF DATA CACHE CONTENTS                   ");
 			$display("__________________________________________________________________");		
 		end

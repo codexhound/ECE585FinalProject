@@ -256,6 +256,17 @@ module INSTRUCTION_CACHE(
 					$display("------------------------------------");
 				end
 			end
+			/*                                                                                */
+			/*                 Just for testing purposes, remove for final                    */
+			/*                                                                                */
+			$display("Instruction Cache Usage Statistics:");
+			$display("Number of cache reads		: %d", IC_Reads);
+			$display("Number of cache hits		: %d", IC_Read_Hit);
+			$display("Number of cache misses	: %d", IC_Read_Miss);
+			$display("Cache	hit ratio		: %.2f%% \n", IC_Reads != 0 ? 100.00*(IC_Read_Hit)/(IC_Reads) : 0);
+			/*                                                                                */
+			/*                                                                                */
+			/*                                                                                */
 			$display("  END OF INSTRUCTION CACHE CONTENTS ");
 			$display("____________________________________");		
 		end
