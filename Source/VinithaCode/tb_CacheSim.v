@@ -7,7 +7,7 @@
 // Description : This module reads a stimulus file
 */
 
-`define AddressBits 32  //Addressbits
+`define AddressBits 64  //Addressbits
 
 //+TRACE=latest.txt +MODE=0
 

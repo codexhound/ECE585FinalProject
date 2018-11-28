@@ -17,12 +17,14 @@
 # // FOR HIGHER EDUCATION PURPOSES ONLY
 # //
 # vsim -c -do "run -all" "+MODE=1" "+TRACE=testfile2_scenario.dat" tb_CacheSim 
-# Start time: 13:49:13 on Nov 25,2018
+# Start time: 09:46:35 on Nov 28,2018
 # Loading work.tb_CacheSim
 # Loading work.CACHE_SIMULATION
 # Loading work.DATA_CACHE
 # Loading work.INSTRUCTION_CACHE
 # Loading work.STATISTICS
+# ** Warning: (vsim-3015) C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/tb_CacheSim.v(33): [PCDPC] - Port size (32) does not match connection size (64) for port 'address'. The port definition is at: C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v(16).
+#    Time: 0 ns  Iteration: 0  Instance: /tb_CacheSim/cache_sim File: C:/Users/RampantVelcro/Desktop/Class/Fall2018/ECE585/ECE585FinalProject/Source/VinithaCode/CacheSimulation.v
 # run -all
 # Read from L2 984de132
 # Read from L2 116de12f
@@ -43,25 +45,12 @@
 # MESI:	 E	 E	 E	 E	 E	 E	 E	 E
 #                          ** END OF SET **                         
 # ------------------------------------------------------------------
-# Data Cache Usage Statistics:
-# Number of cache reads		:          8
-# Number of cache writes	:          0
-# Number of cache hits		:          0
-# Number of cache misses	:          8
-# Cache	hit ratio		: 0.00% 
-# 
 #                      END OF DATA CACHE CONTENTS                   
 # __________________________________________________________________
 # ____________________________________
 #                                     
 #     INSTRUCTION CACHE CONTENTS      
 # ____________________________________
-# Instruction Cache Usage Statistics:
-# Number of cache reads		:          0
-# Number of cache hits		:          0
-# Number of cache misses	:          0
-# Cache	hit ratio		: 0.00% 
-# 
 #   END OF INSTRUCTION CACHE CONTENTS 
 # ____________________________________
 # Read for Ownership from L2 666de135
@@ -83,25 +72,12 @@
 # MESI:	 M	 M	 M	 I	 M	 S	 M	 S
 #                          ** END OF SET **                         
 # ------------------------------------------------------------------
-# Data Cache Usage Statistics:
-# Number of cache reads		:         12
-# Number of cache writes	:          7
-# Number of cache hits		:          5
-# Number of cache misses	:         14
-# Cache	hit ratio		: 26.32% 
-# 
 #                      END OF DATA CACHE CONTENTS                   
 # __________________________________________________________________
 # ____________________________________
 #                                     
 #     INSTRUCTION CACHE CONTENTS      
 # ____________________________________
-# Instruction Cache Usage Statistics:
-# Number of cache reads		:          0
-# Number of cache hits		:          0
-# Number of cache misses	:          0
-# Cache	hit ratio		: 0.00% 
-# 
 #   END OF INSTRUCTION CACHE CONTENTS 
 # ____________________________________
 # Read from L2 00056000
@@ -116,13 +92,6 @@
 # MESI:	 M	 M	 M	 I	 M	 S	 I	 S
 #                          ** END OF SET **                         
 # ------------------------------------------------------------------
-# Data Cache Usage Statistics:
-# Number of cache reads		:         12
-# Number of cache writes	:          7
-# Number of cache hits		:          5
-# Number of cache misses	:         14
-# Cache	hit ratio		: 26.32% 
-# 
 #                      END OF DATA CACHE CONTENTS                   
 # __________________________________________________________________
 # ____________________________________
@@ -136,37 +105,18 @@
 # MESI:	 S	 I	 I	 I
 #         ** END OF SET **          
 # ------------------------------------
-# Instruction Cache Usage Statistics:
-# Number of cache reads		:          2
-# Number of cache hits		:          1
-# Number of cache misses	:          1
-# Cache	hit ratio		: 50.00% 
-# 
 #   END OF INSTRUCTION CACHE CONTENTS 
 # ____________________________________
 # __________________________________________________________________
 #                                                                   
 #                         DATA CACHE CONTENTS                       
 # __________________________________________________________________
-# Data Cache Usage Statistics:
-# Number of cache reads		:          0
-# Number of cache writes	:          0
-# Number of cache hits		:          0
-# Number of cache misses	:          0
-# Cache	hit ratio		: 0.00% 
-# 
 #                      END OF DATA CACHE CONTENTS                   
 # __________________________________________________________________
 # ____________________________________
 #                                     
 #     INSTRUCTION CACHE CONTENTS      
 # ____________________________________
-# Instruction Cache Usage Statistics:
-# Number of cache reads		:          0
-# Number of cache hits		:          0
-# Number of cache misses	:          0
-# Cache	hit ratio		: 0.00% 
-# 
 #   END OF INSTRUCTION CACHE CONTENTS 
 # ____________________________________
 # Data Cache Usage Statistics:
