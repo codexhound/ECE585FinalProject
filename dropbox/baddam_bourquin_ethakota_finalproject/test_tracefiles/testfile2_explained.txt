@@ -1,0 +1,5 @@
+testfile2_explained
+lines 1-9 (scenario 1)
+lines 10-22 (scenario 2)
+lines 23-26 (test invalidate and instruction fetch)
+lines 27-29 (test a cache clear)
